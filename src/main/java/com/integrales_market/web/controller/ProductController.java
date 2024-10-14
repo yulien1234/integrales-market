@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
@@ -37,9 +38,14 @@ public class ProductController {
     }
 
     @PostMapping("/save")
+
     public ResponseEntity<Product> save(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product),HttpStatus.CREATED);
     }
+    @PutMapping("/update")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        Product updatedProduct = productService.save(product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable("id") int productId) {
